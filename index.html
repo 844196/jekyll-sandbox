@@ -1,1 +1,67 @@
-Hi!
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>MarkdownTest</title>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.10/vue.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.js'></script>
+  <script>
+    window.onload = function() {
+      new Vue({
+        el: '#editor',
+        data: { input: '' },
+        filters: { marked: marked }
+      });
+    };
+  </script>
+  <style>
+    #input {
+      height: 80vh;
+      border: 1px solid #ddd;
+      border-top: none;
+      box-shadow: none;
+      border-top-right-radius: 0;
+      border-top-left-radius: 0;
+      font-family: monospace;
+    }
+    #input:focus {
+      outline: none;
+      border-left: 1px solid #ddd;
+      border-right: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+    }
+    .nav-tabs>li>a {
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">MarkdownTest</a>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <div id="editor" class="panel-body">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab1" data-toggle="tab"><i class="fa fa-edit fa-fw"></i>&nbsp;Markdown</a></li>
+        <li><a href="#tab2" data-toggle="tab"><i class="fa fa-eye fa-fw"></i>&nbsp;Preview</a></li>
+      </ul>
+      <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade in active" id="tab1">
+          <textarea id="input" v-model="input" debounce="300" class="form-control" placeholder="Markdownで編集"></textarea>
+        </div>
+        <div class="tab-pane fade" id="tab2">
+          <div id="output" v-html="input | marked"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
